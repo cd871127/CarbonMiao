@@ -66,8 +66,5 @@ public class ResultWriter {
             fileName = "new " + fileName;
             save();
         }
-
     }
-
-
 }
