@@ -43,11 +43,11 @@ public class ResultWriter {
         System.out.println("Finish build Excel sheet: " + sheetName);
     }
 
-    private void setRow(HSSFRow row, String data1, String data2, String data3, String data4) {
-        row.createCell(0).setCellValue(data1);
-        row.createCell(1).setCellValue(data2);
-        row.createCell(2).setCellValue(data3);
-        row.createCell(3).setCellValue(data4);
+    private void setRow(HSSFRow row, String date, String week, String price, String volume) {
+        row.createCell(0).setCellValue(date);
+        row.createCell(1).setCellValue(week);
+        row.createCell(2).setCellValue(price);
+        row.createCell(3).setCellValue(volume);
 
         row.setRowStyle(cellStyle);
     }
