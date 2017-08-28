@@ -65,7 +65,7 @@
             url: "login/cd/123",
             async: true,
             success: function (data, textStatus, jqXHR) {
-                if (jqXHR.status == '200' || jqXHR.status == '400')
+                if (jqXHR.status === '200' || jqXHR.status === '400')
                     alert(1);
                 else
                     alert(0);
@@ -73,7 +73,7 @@
                 console.log(textStatus);
                 console.log(jqXHR);
                 alert(1);
-                if (typeof data.token != 'undefined')
+                if (typeof data.token !== 'undefined')
                     localStorage['token'] = data.token;
             },
 //            error: function (xhr){

@@ -2,10 +2,14 @@ package anthony.apps.carbonmiao.system.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+@Order(1)
+@WebFilter(filterName = "loginFilter", urlPatterns = "/*")
 public class LoginFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
