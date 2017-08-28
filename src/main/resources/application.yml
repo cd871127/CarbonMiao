@@ -16,3 +16,7 @@ spring:
       resolve-lazily: true
       max-file-size: 128MB
       max-request-size: 128MB
+#  devtools:
+#    restart:
+#      additional-paths:
+
