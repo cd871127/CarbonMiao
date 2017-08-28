@@ -1,0 +1,18 @@
+server:
+  port: 18888
+  tomcat:
+    uri-encoding: utf-8 #以Tomcat为web容器时的字符编码
+
+spring:
+  http:
+    encoding:
+      force: true
+      charset: utf-8 #http请求的字符编码
+      enabled: true
+      force-request: true
+      force-response: true
+    multipart:
+      enabled: true
+      resolve-lazily: true
+      max-file-size: 128MB
+      max-request-size: 128MB

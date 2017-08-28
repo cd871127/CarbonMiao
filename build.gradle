@@ -4,22 +4,37 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.plugin-shadow'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
 buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
     repositories {
         jcenter()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+        }
     }
     dependencies {
         classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.0'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath 'org.springframework:springloaded:1.2.7.RELEASE'
     }
 }
 repositories {
-    mavenCentral()
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public'
+    }
 }
 
 dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+
+
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.33'
     compile group: 'org.apache.poi', name: 'poi', version: '3.16'
@@ -29,14 +44,22 @@ dependencies {
 }
 
 
-
-mainClassName = 'com.anthony.Main'
-
-jar {
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+bootRun {
+    addResources = true
 }
+bootRepackage {
+    mainClass = mainClassName
+}
+
+mainClassName = 'anthony.apps.carbonmiao.Main'
+jar.manifest.attributes.'Main-Class' = mainClassName
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': mainClassName
+//    }
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
