@@ -18,6 +18,8 @@ buildscript {
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$project.SPRING_BOOT_VERSION"
+
+
         classpath 'org.springframework:springloaded:1.2.7.RELEASE'
     }
 }
@@ -29,6 +31,10 @@ repositories {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: project.SPRING_BOOT_VERSION
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: project.SPRING_BOOT_VERSION
+    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+//    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.5.0'
+
 
 //    compile group: 'org.springframework', name: 'springloaded', version: '1.2.7.RELEASE'
 //    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'

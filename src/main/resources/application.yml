@@ -16,7 +16,22 @@ spring:
       resolve-lazily: true
       max-file-size: 128MB
       max-request-size: 128MB
+  data:
+    #mangodb的配置
+    mongodb:
+      authentication-database: carbonmiao # Authentication database name.
+      #field-naming-strategy= # Fully qualified name of the FieldNamingStrategy to use.
+      #grid-fs-database= # GridFS database name.
+      #host: 127.0.0.1 # Mongo server host.
+      #username: carbonmiao # Login user of the mongo server.
+      #password: 111111 # Login password of the mongo server.
+      #port: 27017 # Mongo server port.
+      repositories:
+        enabled: true # Enable Mongo repositories.
+      uri: mongodb://carbonmiao:111111@localhost:27017/carbonmiao?authSource=carbonmiao&authMechanism=SCRAM-SHA-1 # Mongo database URI. When set, host and port are ignored.
 #  devtools:
 #    restart:
 #      additional-paths:
+
+
 
