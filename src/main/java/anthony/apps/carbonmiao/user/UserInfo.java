@@ -3,31 +3,25 @@ package anthony.apps.carbonmiao.user;
 import org.springframework.data.annotation.Id;
 
 public class UserInfo {
+
     @Id
-    private String id;
-    private String name;
+    private String userId;
+    private String passWord;
 
-    public String getId() {
-        return id;
+
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }

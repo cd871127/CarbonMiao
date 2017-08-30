@@ -22,8 +22,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         logger.info("*************FILTER***********************");
         HttpServletRequest request1= (HttpServletRequest) request;
-        String isOK= (String) request1.getAttribute("ok");
-        System.out.println(isOK);
+        System.out.println(request1.getQueryString());
         chain.doFilter(request, response);
     }
 
