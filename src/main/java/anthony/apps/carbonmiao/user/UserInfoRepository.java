@@ -1,9 +1,7 @@
 package anthony.apps.carbonmiao.user;
 
-import org.springframework.data.mongodb.core.MongoTemplate;
+import anthony.apps.carbonmiao.user.dto.UserInfoDTO;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
-
-public interface UserInfoRepository extends MongoRepository<UserInfo,String> {
+public interface UserInfoRepository extends MongoRepository<UserInfoDTO,String> {
 }

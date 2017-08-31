@@ -1,8 +1,8 @@
-package anthony.apps.carbonmiao.user;
+package anthony.apps.carbonmiao.user.dto;
 
 import org.springframework.data.annotation.Id;
 
-public class UserInfo {
+public class UserInfoDTO {
 
     @Id
     private String userId;

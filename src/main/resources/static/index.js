@@ -1,3 +1,32 @@
+
+function modify() {
+    let url = "/users/";
+    let postData = {
+        userId: document.getElementById("userId").value,
+        passWord: document.getElementById("passWord").value
+    };
+    url = url + postData.userId;
+    fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'passWord': postData.passWord
+        },
+        // ,
+        // body: JSON.stringify(postData)
+    }).then(function (response) {
+        let status = response.status;
+        if (status === 200) {
+            alert("modify ok");
+            return response.json();
+        }
+        else
+            throw "modify failed"
+    }).catch(function (err) {
+        console.log(err);
+    });
+}
+
 function login() {
     let url = "/users/";
     let postData = {
