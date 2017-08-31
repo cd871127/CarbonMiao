@@ -2,7 +2,6 @@ package anthony.apps.carbonmiao.user.controller;
 
 import anthony.apps.carbonmiao.user.dao.UserInfoDAO;
 import anthony.apps.carbonmiao.user.dto.UserInfoDTO;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +37,6 @@ public class UserController {
 
     @RequestMapping(value = "{userId}", method = GET)
     public UserInfoDTO login(@PathVariable("userId") String userId, HttpServletRequest request, HttpServletResponse response) {
-        Criteria userIdCriteria = Criteria.where("userId").is(userId);
-        Criteria passWordCriteria = Criteria.where("passWord").is(request.getHeader("passWord"));
         UserInfoDTO userInfoDTO = userInfoDAO.findUserInfoDTOByUserId(userId);
         if (null != userInfoDTO
                 && null != userInfoDTO.getPassWord()
@@ -57,6 +54,24 @@ public class UserController {
         param.put("passWord", request.getHeader("passWord"));
         return userInfoDAO.updateUserInfoDTOByUserId(userId, param);
     }
+
+    @RequestMapping(value = "{userId}", method = DELETE)
+    public void delete(@PathVariable("userId") String userId, HttpServletRequest request, HttpServletResponse response) {
+        UserInfoDTO userInfoDTO = userInfoDAO.findUserInfoDTOByUserId(userId);
+        String passWord = request.getHeader("passWord");
+        if (null != userInfoDTO
+                && null != userInfoDTO.getPassWord()
+                && userInfoDTO.getPassWord().equals(passWord)) {
+            userInfoDTO = userInfoDAO.deleteUserInfoDTOByUserIdAndPassWord(userId, passWord);
+        }
+
+        if (null != userInfoDTO) {
+            //ok
+        } else {
+            //not ok
+        }
+    }
+
 
 
 }

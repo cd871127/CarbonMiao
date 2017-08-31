@@ -31,4 +31,9 @@ public class UserInfoDAO {
         return mongoTemplate.findAndModify(Query.query(Criteria.where("userId").is(userId)),
                 update, UserInfoDTO.class, USER_INFO_COLLECTION_NAME);
     }
+
+    public UserInfoDTO deleteUserInfoDTOByUserIdAndPassWord(String userId, String passWord) {
+        Criteria criteria = Criteria.where("userId").is(userId).andOperator(Criteria.where("passWord").is(passWord));
+        return mongoTemplate.findAndRemove(Query.query(criteria), UserInfoDTO.class, USER_INFO_COLLECTION_NAME);
+    }
 }
