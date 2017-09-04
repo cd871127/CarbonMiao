@@ -2,10 +2,7 @@ package anthony.apps.carbonmiao.user.controller;
 
 import anthony.apps.carbonmiao.user.dao.UserInfoDAO;
 import anthony.apps.carbonmiao.user.dto.UserInfoDTO;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,15 +32,17 @@ public class UserController {
         return userInfoDTO;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000", methods = GET)
     @RequestMapping(value = "{userId}", method = GET)
-    public UserInfoDTO login(@PathVariable("userId") String userId, HttpServletRequest request, HttpServletResponse response) {
+    public UserInfoDTO login(@PathVariable("userId") String userId, @RequestParam("passWord")String passWord, HttpServletRequest request, HttpServletResponse response) {
         UserInfoDTO userInfoDTO = userInfoDAO.findUserInfoDTOByUserId(userId);
         if (null != userInfoDTO
                 && null != userInfoDTO.getPassWord()
-                && userInfoDTO.getPassWord().equals(request.getHeader("passWord"))) {
+                && userInfoDTO.getPassWord().equals(passWord)) {
             response.setStatus(SC_OK);
         } else {
             response.setStatus(SC_FORBIDDEN);
+            userInfoDTO=null;
         }
         return userInfoDTO;
     }
