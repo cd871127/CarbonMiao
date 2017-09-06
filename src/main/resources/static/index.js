@@ -123,3 +123,13 @@ function register() {
         console.log(err);
     });
 }
+
+function test() {
+    fetch("/auth/publickey").then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        alert(data.resultData);
+    }).catch(function (err) {
+        console.log(err)
+    });
+}

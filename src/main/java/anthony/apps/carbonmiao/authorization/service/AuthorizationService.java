@@ -1,6 +1,7 @@
-package anthony.apps.carbonmiao.authorization.action;
+package anthony.apps.carbonmiao.authorization.service;
 
-import org.springframework.stereotype.Component;
+import anthony.apps.carbonmiao.common.util.ServiceResult;
+import org.springframework.stereotype.Service;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -18,8 +19,8 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class AuthorizationAction {
+@Service
+public class AuthorizationService {
 
     private Map<String, RSAPrivateKey> privateKeyMap = new HashMap<>();
     private final int KEY_SIZE = 1024;
@@ -28,6 +29,7 @@ public class AuthorizationAction {
 
 
     public String getPublicKey() {
+        ServiceResult<String> result = new ServiceResult<>();
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
             keyPairGenerator.initialize(KEY_SIZE);
@@ -36,21 +38,23 @@ public class AuthorizationAction {
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
             String publicKeyStr = new BASE64Encoder().encode(publicKey.getEncoded());
             privateKeyMap.put(publicKeyStr, privateKey);
-            return publicKeyStr;
+            result.setSuccess();
+            result.setResultData(publicKeyStr);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            result.setFailed(e.getMessage());
         }
-        return null;
+        return result.toJSON();
     }
 
-    public String decode(String publicKeyStr, String cryptedStr) {
+    public String decode(String publicKeyStr, String encryptedStr) {
         RSAPrivateKey privateKey = privateKeyMap.get(publicKeyStr);
         if (null == privateKey)
             return null;
         try {
             Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            return new String(cipher.doFinal(new BASE64Decoder().decodeBuffer(cryptedStr)));
+            return new String(cipher.doFinal(new BASE64Decoder().decodeBuffer(encryptedStr)));
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException e1) {
             e1.printStackTrace();
         }

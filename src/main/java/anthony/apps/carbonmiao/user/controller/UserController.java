@@ -34,7 +34,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:3000", methods = GET)
     @RequestMapping(value = "{userId}", method = GET)
-    public UserInfoDTO login(@PathVariable("userId") String userId, @RequestParam("passWord")String passWord, HttpServletRequest request, HttpServletResponse response) {
+    public UserInfoDTO login(@PathVariable("userId") String userId, @RequestParam("passWord")String passWord, HttpServletResponse response) {
         UserInfoDTO userInfoDTO = userInfoDAO.findUserInfoDTOByUserId(userId);
         if (null != userInfoDTO
                 && null != userInfoDTO.getPassWord()

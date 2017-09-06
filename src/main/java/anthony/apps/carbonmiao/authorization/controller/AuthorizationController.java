@@ -1,6 +1,7 @@
 package anthony.apps.carbonmiao.authorization.controller;
 
-import anthony.apps.carbonmiao.authorization.action.AuthorizationAction;
+import anthony.apps.carbonmiao.authorization.service.AuthorizationService;
+import anthony.apps.carbonmiao.common.util.ServiceResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +16,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class AuthorizationController {
 
     @Resource
-    private AuthorizationAction authorizationAction;
+    private AuthorizationService authorizationService;
 
     @RequestMapping(value = "publickey", method = GET)
     public String getPublicKey() {
-        return authorizationAction.getPublicKey();
+        return authorizationService.getPublicKey();
     }
 
 }
