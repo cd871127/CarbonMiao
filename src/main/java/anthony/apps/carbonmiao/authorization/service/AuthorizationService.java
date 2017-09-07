@@ -28,7 +28,7 @@ public class AuthorizationService {
     private final String CIPHER_ALGORITHM = "RSA/ECB/PKCS1Padding";
 
 
-    public String getPublicKey() {
+    public String getPublicKey(String userName) {
         ServiceResult<String> result = new ServiceResult<>();
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
@@ -37,7 +37,7 @@ public class AuthorizationService {
             RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
             String publicKeyStr = new BASE64Encoder().encode(publicKey.getEncoded());
-            privateKeyMap.put(publicKeyStr, privateKey);
+            privateKeyMap.put(userName, privateKey);
             result.setSuccess();
             result.setResultData(publicKeyStr);
         } catch (NoSuchAlgorithmException e) {
@@ -47,8 +47,8 @@ public class AuthorizationService {
         return result.toJSON();
     }
 
-    public String decode(String publicKeyStr, String encryptedStr) {
-        RSAPrivateKey privateKey = privateKeyMap.get(publicKeyStr);
+    public String decode(String userName, String encryptedStr) {
+        RSAPrivateKey privateKey = privateKeyMap.get(userName);
         if (null == privateKey)
             return null;
         try {
@@ -57,6 +57,8 @@ public class AuthorizationService {
             return new String(cipher.doFinal(new BASE64Decoder().decodeBuffer(encryptedStr)));
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException e1) {
             e1.printStackTrace();
+        } finally {
+            privateKeyMap.remove(userName);
         }
         return null;
     }
