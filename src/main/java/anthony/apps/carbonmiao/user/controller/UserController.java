@@ -1,5 +1,6 @@
 package anthony.apps.carbonmiao.user.controller;
 
+import anthony.apps.carbonmiao.system.config.SystemConfigParameters;
 import anthony.apps.carbonmiao.user.dao.UserInfoDAO;
 import anthony.apps.carbonmiao.user.dto.UserInfoDTO;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class UserController {
         return userInfoDTO;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000", methods = GET)
+    @CrossOrigin(origins = SystemConfigParameters.PAGE_SERV, methods = GET)
     @RequestMapping(value = "{userId}", method = GET)
     public UserInfoDTO login(@PathVariable("userId") String userId, @RequestParam("passWord")String passWord, HttpServletResponse response) {
         UserInfoDTO userInfoDTO = userInfoDAO.findUserInfoDTOByUserId(userId);
