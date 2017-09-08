@@ -33,6 +33,7 @@ public class UserController {
         return userInfoDTO;
     }
 
+
     @CrossOrigin(origins = SystemConfigParameters.PAGE_SERV, methods = GET)
     @RequestMapping(value = "{userId}", method = GET)
     public UserInfoDTO login(@PathVariable("userId") String userId, @RequestParam("passWord")String passWord, HttpServletResponse response) {
