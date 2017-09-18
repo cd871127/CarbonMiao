@@ -22,7 +22,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         logger.info("*************FILTER***********************");
         HttpServletRequest request1= (HttpServletRequest) request;
-        System.out.println(request1.getQueryString());
+        System.out.println(request1.getHeader("TOKEN"));
         chain.doFilter(request, response);
     }
 

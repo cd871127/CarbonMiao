@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebFilter(filterName = "excludeFilter", urlPatterns = "/*")
 public class ExcludeFilter implements Filter {
     private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -21,7 +22,7 @@ public class ExcludeFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-logger.info("ExcludeFilter");
+        logger.info("ExcludeFilter");
         HttpServletRequest request1 = (HttpServletRequest) request;
         if (request1.getRequestURI().contains("111")) {
             request1.setAttribute("ok", "ok");

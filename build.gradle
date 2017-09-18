@@ -50,7 +50,7 @@ bootRepackage {
 mainClassName = 'anthony.apps.carbonmiao.Main'
 jar.manifest.attributes.'Main-Class' = mainClassName
 
-task a {
+task testTask {
     doLast {
         print("$project.SPRING_BOOT_VERSION")
     }
